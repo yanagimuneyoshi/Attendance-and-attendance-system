@@ -11,18 +11,22 @@
 <body>
   <div class="attendance-form">
     <h2>出勤記録</h2>
-    <label for="name">名前:</label>
-    <input type="text" name="name" required>
 
-    <label for="date">日付:</label>
-    <input type="date" name="date" required>
+    <form action="/attendance" method="post"> <!-- フォームの送信先を修正 -->
+      @csrf <!-- CSRF トークンを追加 -->
 
-    <label for="time">時間:</label>
-    <input type="time" name="time" required>
+      <label for="name">名前:</label>
+      <input type="text" name="name" required>
 
-    <a href="/attendance" button type="submit" name="action" value="check_in">出勤</a>
-    <a href="/leavingwork" type="submit" name="action" value="check_out">退勤</a>
-      </form>
+      <label for="date">日付:</label>
+      <input type="date" name="date" required>
+
+      <label for="time">時間:</label>
+      <input type="time" name="time" required>
+
+      <button type="submit" name="action" value="check_in">出勤</button> <!-- ボタンを修正 -->
+      <button type="submit" name="action" value="check_out">退勤</button> <!-- ボタンを修正 -->
+    </form>
   </div>
 </body>
 

@@ -26,4 +26,19 @@ class AllController extends Controller
     {
         return view('admin');
     }
+
+
+    public function saveAttendance(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'date' => 'required|date',
+            'time' => 'required|date_format:H:i',
+            'action' => 'nullable' // 'action' が空でもバリデーションを通す
+        ]);
+
+        AttendanceRecord::create($data);
+
+        return redirect('/attendance')->with('success', '出勤記録が保存されました');
+    }
 }
