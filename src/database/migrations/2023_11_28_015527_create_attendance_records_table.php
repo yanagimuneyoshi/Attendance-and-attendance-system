@@ -13,7 +13,7 @@ class CreateAttendanceRecordsTable extends Migration
             $table->string('name');
             $table->date('date');
             $table->time('time');
-            $table->string('action'); // 出勤か退勤かを示すカラムを追加
+            $table->enum('action', ['check_in', 'check_out']); // 例: 'check_in' または 'check_out' のいずれか
             $table->timestamps();
         });
     }

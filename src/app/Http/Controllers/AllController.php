@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\AttendanceRecord;
 
 class AllController extends Controller
 {
@@ -37,8 +38,21 @@ class AllController extends Controller
             'action' => 'nullable' // 'action' が空でもバリデーションを通す
         ]);
 
-        AttendanceRecord::create($data);
+        if ($data['action'] === 'check_in') {
+            // check_in のロジックをここで処理
+            AttendanceRecord::create($data);
 
-        return redirect('/attendance')->with('success', '出勤記録が保存されました');
+            return view('/attendance');
+        } elseif ($data['action'] === 'check_out') {
+            // check_out のロジックをここで処理
+            // ここに特定のチェックアウトのロジックを追加できます
+            // ...
+
+            return redirect('/leavingwork')->with('success', '退勤記録が保存されました');
+        }
+
+        // アクションが check_in でも check_out でもない場合
+        return redirect('/')->with('error', '無効なアクションが指定されました');
+        
     }
 }
