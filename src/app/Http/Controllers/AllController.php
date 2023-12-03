@@ -47,12 +47,13 @@ class AllController extends Controller
             // check_out のロジックをここで処理
             // ここに特定のチェックアウトのロジックを追加できます
             // ...
+            AttendanceRecord::create($data);
 
-            return redirect('/leavingwork')->with('success', '退勤記録が保存されました');
+            return view('/leavingwork');
         }
 
         // アクションが check_in でも check_out でもない場合
-        return redirect('/')->with('error', '無効なアクションが指定されました');
+        // return redirect('/')->with('error', '無効なアクションが指定されました');
         
     }
 }

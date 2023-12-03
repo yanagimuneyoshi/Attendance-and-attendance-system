@@ -8,4 +8,4 @@ Route::get('/', [AllController::class, 'index']);
 Route::get('/attendance', [AllController::class, 'saveAttendance']);
 // Route::get('/attendance', [AllController::class, 'attendance']);
 // Route::get('/leavingwork', [AllController::class, 'leavingwork']);
-// Route::get('/admin', [AllController::class, 'admin']);
+Route::get('/admin', [AllController::class, 'admin']);
