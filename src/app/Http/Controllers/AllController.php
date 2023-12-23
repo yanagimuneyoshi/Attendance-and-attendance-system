@@ -25,7 +25,9 @@ class AllController extends Controller
 
     public function admin()
     {
-        return view('admin');
+
+        $attendanceRecords = AttendanceRecord::all();
+        return view('admin' , ['attendanceRecords' => $attendanceRecords]);
     }
 
 
@@ -51,9 +53,30 @@ class AllController extends Controller
 
             return view('/leavingwork');
         }
-
-        // アクションが check_in でも check_out でもない場合
-        // return redirect('/')->with('error', '無効なアクションが指定されました');
-        
     }
+    // アクションが check_in でも check_out でもない場合
+    // return redirect('/')->with('error', '無効なアクションが指定されました');
+    public function deleteRecord($id)
+    {
+        // デバッグメッセージを追加
+        \Log::debug("Delete Record ID: $id");
+
+        $record = AttendanceRecord::find($id);
+
+        // if (!$record) {
+        //     return redirect('/admin')->with('error', '削除対象が見つかりませんでした');
+        // }
+
+        $record->delete($id);
+
+        return redirect('/admin');
+    }
+
+
+
+
+
+
+
+
 }

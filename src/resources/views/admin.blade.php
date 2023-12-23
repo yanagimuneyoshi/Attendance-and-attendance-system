@@ -17,49 +17,56 @@
     <div class="button-group">
       <a href="{{ url('/') }}" class="back-button">戻る</a>
     </div>
+    <form class="create-form">
 
-    <div class="search-form">
-      <label for="name">名前:</label>
-      <input type="text" name="name" id="name">
+      <div class="search-form">
+        <label for="name">名前:</label>
+        <input type="text" name="name" id="name">
 
-      <label for="date">日付:</label>
-      <input type="date" name="date" id="date">
+        <label for="date">日付:</label>
+        <input type="date" name="date" id="date">
 
-      <label for="time">時間:</label>
-      <input type="time" name="time" id="time">
+        <label for="time">時間:</label>
+        <input type="time" name="time" id="time">
 
-      <button type="submit" onclick="search()">検索</button>
-    </div>
+        <button type="submit" onclick="search()">検索</button>
+      </div>
 
-    <table class="attendance-table">
-      <thead>
-        <tr>
-          <th>名前</th>
-          <th>日付</th>
-          <th>時間</th>
-          <th>退勤</th>
-          <th>出勤</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- データは実際のデータベースから取得する形に変更 -->
-        <tr>
-          <td>John Doe</td>
-          <td>2023-11-27</td>
-          <td>09:00 AM</td>
-          <td>18:00 PM</td>
-          <td>09:00 AM</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="attendance-table">
+        <thead>
+          <tr>
+            <th>名前</th>
+            <th>日付</th>
+            <th>時間</th>
+            <th>退勤</th>
+            <th>出勤</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($attendanceRecords as $record)
+          <tr>
+            <td>{{ $record->name }}</td>
+            <td>{{ $record->date }}</td>
+            <td>{{ $record->time }}</td>
+            <td>{{ $record->action === 'check_out' ? $record->created_at : '' }}</td>
+            <td>{{ $record->action === 'check_in' ? $record->created_at : '' }}</td>
+            <td>
+              {{ $record->id }}
+              <form action="/admin/delete" method="post">
+
+                @method('DELETE')
+                @csrf
+                <input type="hidden" name="id" value="{{ $record->id }}">
+                <button type="submit">削除</button>
+              </form>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
   </div>
 
-  <script>
-    function search() {
-      alert('検索処理を実行します。');
-      // 実際の検索処理をここに追加
-    }
-  </script>
+
 </body>
 
 </html>
